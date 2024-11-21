@@ -35,17 +35,14 @@ int main(int argc,char *argv[]){
     }
     bzero(buffer,256);
     fgets(buffer,255,stdin);
-    buffer[strcspn(buffer,"\n")]=0;
+    buffer[strcspn(buffer,"\n")]='\0';
     n=write(sockfd,buffer,strlen(buffer));
     if(n<0){
         perror("Error on Writing");
         exit(1);
     }
-    n=read(sockfd,buffer,255);
-    if(n<0){
-        perror("Error on Reading");
-        exit(1);
+    while(read(sockfd,buffer,255)>0){
+        printf("%s\n",buffer);
     }
-    printf("%s\n",buffer);
     return 0;
 }
