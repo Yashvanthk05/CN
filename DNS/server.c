@@ -44,7 +44,7 @@ int main(int argc,char *argv[]){
     struct hostent *host;
     struct in_addr ip_addr;
     if(inet_aton(buffer,&ip_addr)){
-        host=gethostbyaddr(buffer,sizeof(buffer),AF_INET);
+        host=gethostbyaddr((const void*)&ip_addr,sizeof(ip_addr),AF_INET);
         if(host==NULL) strcpy(buffer,"No such Host");
         else sprintf(buffer,"Hostname: %s",host->h_name);
     }else{
